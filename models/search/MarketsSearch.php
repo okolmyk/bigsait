@@ -5,12 +5,12 @@ namespace app\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\CategoryProducts;
+use app\models\Markets;
 
 /**
- * CategoryProductsSsearch represents the model behind the search form about `app\models\CategoryProducts`.
+ * MarketsSearch represents the model behind the search form about `app\models\Markets`.
  */
-class CategoryProductsSsearch extends CategoryProducts
+class MarketsSearch extends Markets
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class CategoryProductsSsearch extends CategoryProducts
     {
         return [
             [['id'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'avatar'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class CategoryProductsSsearch extends CategoryProducts
      */
     public function search($params)
     {
-        $query = CategoryProducts::find();
+        $query = Markets::find();
 
         // add conditions that should always apply here
 
@@ -62,7 +62,8 @@ class CategoryProductsSsearch extends CategoryProducts
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'avatar', $this->avatar]);
 
         return $dataProvider;
     }

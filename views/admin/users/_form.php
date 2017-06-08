@@ -33,7 +33,7 @@ use yii\web\UploadedFile;
     <?php // echo $form->field($model, 'avatar')->textInput(['maxlength' => true]) ?>
 
      <?= $form->field($model, 'imageFile')->fileInput(); ?>
-    
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

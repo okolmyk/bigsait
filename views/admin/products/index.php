@@ -4,12 +4,12 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\Markets;
 use app\models\Products;
-use app\models\search\ProductsSearch;
 use app\models\CategoryProducts;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
+/* @var $searchModel app\models\search\ProductsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Products';
@@ -18,39 +18,43 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="products-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Products', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
- 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-           // ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
             'id',
            // 'name',
+           // 'id_category',
+           // 'id_markets',
+           // 'sex_category',
+           
             [
 				'attribute' => 'name',
 				'value' => 'name',	
 				'filter' => Products::find()->select(['name', 'id'])->indexBy('name')->column(),
             ],
-           // 'id_category',
-           // 'id_markets',
+           
            
             [
-				'attribute' => 'id category',
+				'attribute' => 'id_category',
 				'value' => 'idCategory.name',
 				'filter' => CategoryProducts::find()->select(['name', 'id'])->indexBy('id')->column(), 	
 			],
 			
             [
-				'attribute' => 'id markets',
+				'attribute' => 'id_markets',
 				'value' => 'idMarkets.name',
+				'filter' => Markets::find()->select(['name', 'id'])->indexBy('id')->column(),
 			],
-           // 'sex_category',
+           
             [
-				'attribute' => 'Sex categoty',
+				'attribute' => 'sex_category',
 				'value' => 'sex_category',
 				'filter' => Products::find()->select(['sex_category', 'id'])->indexBy('sex_category')->column(),
             ],

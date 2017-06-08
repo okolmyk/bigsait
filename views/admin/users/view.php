@@ -39,7 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'access_token',
             'userGroup',
             'avatar',
-            
             [
 				'label' => 'Avatar',
 				'format' => 'raw',

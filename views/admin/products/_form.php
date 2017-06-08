@@ -8,6 +8,9 @@ use yii\helpers\ArrayHelper;
 use app\models\UploadForm;
 use yii\web\UploadedFile;
 
+/* @var $this yii\web\View */
+/* @var $model app\models\Products */
+/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="products-form">

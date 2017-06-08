@@ -4,11 +4,10 @@ namespace app\controllers\admin;
 
 use Yii;
 use app\models\CategoryProducts;
-use yii\data\ActiveDataProvider;
+use app\models\search\CategoryProductsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\ForbiddenHttpException;
 
 /**
  * CategoryProductsController implements the CRUD actions for CategoryProducts model.
@@ -91,11 +90,11 @@ class CategoryProductsController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => CategoryProducts::find(),
-        ]);
+        $searchModel = new CategoryProductsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -168,7 +167,7 @@ class CategoryProductsController extends Controller
         if (!Yii::$app->user->can('create')) {
 			throw new ForbiddenHttpException('Access denied');	
 		}
-		
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

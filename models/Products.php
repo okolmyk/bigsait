@@ -44,7 +44,7 @@ class Products extends \yii\db\ActiveRecord
             [['name', 'sex_category'], 'string', 'max' => 255],
             [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryProducts::className(), 'targetAttribute' => ['id_category' => 'id']],
             [['id_markets'], 'exist', 'skipOnError' => true, 'targetClass' => Markets::className(), 'targetAttribute' => ['id_markets' => 'id']],
-			
+
 			//[['imageFile'], 'file', 'extensions' => 'png, jpg', 'skipOnEmpty' => false],
 			[['imageFile'], 'file', 'extensions' => 'png, jpg', 'skipOnEmpty' => true],
 			
@@ -83,12 +83,12 @@ class Products extends \yii\db\ActiveRecord
     }
     
     
-    public function beforeValidate()
+/*    public function beforeValidate()
     {
 		//die('sdfsf');
 		print_r($_POST); 
 		print_r($this->attributes);
 		return parent::beforeValidate();
-	}
+	}*/
     
 }

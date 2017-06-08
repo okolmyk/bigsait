@@ -115,16 +115,12 @@ class ProductsController extends Controller
      */
     public function actionIndex()
     {
-		$searchModel = new ProductsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams); 
-     
-        $dataProvider = new ActiveDataProvider([
-            'query' => Products::find()->with(['idCategory', 'idMarkets']),
-        ]);
-
+        $searchModel = new ProductsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -145,6 +141,7 @@ class ProductsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
     public function actionCreate()
     {
         if (!Yii::$app->user->can('create')) {
@@ -164,71 +161,19 @@ class ProductsController extends Controller
 					}
 				}
 				$model->save();
-				return $this->redirect(['view', 'id' => $model->id]);		
-			}	
+				return $this->redirect(['view', 'id' => $model->id]);	
+			}
+			
         return $this->render('create', ['model' => $model,]);
     }
-    
- /*   public function actionCreate() // с возможностью обязательной загрузки картинки
-    {
-        if (!Yii::$app->user->can('create')) {
-			throw new ForbiddenHttpException('Access denied');	
-		}
-        
-        $model = new Products();
 
-        if ($model->load(Yii::$app->request->post())) {
-			$model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-			if ($model->save()) {
-					$img = $model->id . '.' . $model->imageFile->extension;
-					$model->imageFile->saveAs('./photo/' . $img);
-					$model->pictures = $img;
-					$model->save(false, ['pictures']);
-					return $this->redirect(['view', 'id' => $model->id]);
-				}
-			}
-			
-        return $this->render('create', ['model' => $model,]);
-    }*/
-/*============================================================================*/    
- /*   public function actionCreate() // упрощенная загрузка
-    {
-        $model = new Products();
-
-        if ($model->load(Yii::$app->request->post())) {
-			
-			$model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-        
-			if ($model->save()) {
-					$model->imageFile->saveAs('../runtime/' . $model->imageFile->baseName . '.' . $model->imageFile->extension);
-					return $this->redirect(['view', 'id' => $model->id]);
-				}
-			}
-        //var_dump($model->errors);
-
-        return $this->render('create', [ 'model' => $model,]);
-
-    }*/
-/*============================================================================*/     
-/*    public function actionCreate() //базовая сгенерированная
-    {
-        $model = new Products();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }*/
-/*============================================================================*/  
     /**
      * Updates an existing Products model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
+
     public function actionUpdate($id)
     {
         if (!Yii::$app->user->can('create')) {
@@ -237,8 +182,8 @@ class ProductsController extends Controller
         
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
-			   if($model->imageFile = UploadedFile::getInstance($model, 'imageFile')){
+        if ($model->load(Yii::$app->request->post())) {	
+            if($model->imageFile = UploadedFile::getInstance($model, 'imageFile')){
 					if ($model->save()){
 							$img = $model->id . '.' . $model->imageFile->extension;
 							$model->imageFile->saveAs('./photo/' . $img);
@@ -248,50 +193,14 @@ class ProductsController extends Controller
 						}
 				}
 				$model->save();
-				return $this->redirect(['view', 'id' => $model->id]);			
+				return $this->redirect(['view', 'id' => $model->id]);
+					
         } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
     }
-    
-/*  public function actionUpdate($id) // с возможностью обязательного апдейта картинки
-    {
-        if (!Yii::$app->user->can('create')) {
-			throw new ForbiddenHttpException('Access denied');	
-		}
-        
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post())) {
-           $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-			if ($model->save()) {
-					$img = $model->id . '.' . $model->imageFile->extension;
-					$model->imageFile->saveAs('./photo/' . $img);
-					$model->pictures = $img;
-					$model->save(false, ['pictures']);
-					return $this->redirect(['view', 'id' => $model->id]);
-				}
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }*/
-    
-   /* public function actionUpdate($id) //базовая сгенерированная
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }*/
 
     /**
      * Deletes an existing Products model.
@@ -304,12 +213,12 @@ class ProductsController extends Controller
         if (!Yii::$app->user->can('create')) {
 			throw new ForbiddenHttpException('Access denied');	
 		}
-		
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
-    
+
     /**
      * Finds the Products model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

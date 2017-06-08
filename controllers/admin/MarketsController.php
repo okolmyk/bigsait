@@ -4,6 +4,7 @@ namespace app\controllers\admin;
 
 use Yii;
 use app\models\Markets;
+use app\models\search\MarketsSearch;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -112,11 +113,11 @@ class MarketsController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Markets::find(),
-        ]);
+        $searchModel = new MarketsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -159,20 +160,6 @@ class MarketsController extends Controller
 			
         return $this->render('create', [ 'model' => $model,]);
     }
-    
-    
-    /*public function actionCreate() //базовая сгенерированная
-    {
-        $model = new Markets();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }*/
 
     /**
      * Updates an existing Markets model.
@@ -203,20 +190,6 @@ class MarketsController extends Controller
             ]);
         }
     }
-    
-    
-/*    public function actionUpdate($id) //базовая сгенерированная
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }*/
 
     /**
      * Deletes an existing Markets model.
@@ -229,7 +202,7 @@ class MarketsController extends Controller
         if (!Yii::$app->user->can('create')) {
 			throw new ForbiddenHttpException('Access denied');	
 		}
-		
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

@@ -5,6 +5,7 @@ namespace app\controllers\admin;
 use Yii;
 use yii\filters\AccessControl;
 use app\models\Users;
+use app\models\search\UsersSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -93,11 +94,11 @@ class UsersController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Users::find(),
-        ]);
+        $searchModel = new UsersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -140,19 +141,6 @@ class UsersController extends Controller
 			
         return $this->render('create', [ 'model' => $model,]);
     }
-    
-/*    public function actionCreate() //базовая сгенерированная
-    {
-        $model = new Users();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }*/
 
     /**
      * Updates an existing Users model.
@@ -160,7 +148,7 @@ class UsersController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+	public function actionUpdate($id)
     {
         if (!Yii::$app->user->can('create')) {
 			throw new ForbiddenHttpException('Access denied');	
@@ -183,19 +171,6 @@ class UsersController extends Controller
             ]);
         }
     }
-    
-/*    public function actionUpdate($id) //базовая сгенерированная
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }*/
 
     /**
      * Deletes an existing Users model.
@@ -229,6 +204,4 @@ class UsersController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
-    
 }
