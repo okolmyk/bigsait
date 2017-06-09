@@ -152,20 +152,31 @@ class ProductsController extends Controller
         $model = new Products();
 
         if ($model->load(Yii::$app->request->post())) {
-
+						
+			if(Yii::$app->request->post('size') && is_array(Yii::$app->request->post('size'))){		
+				if($model->save()){
+					foreach(Yii::$app->request->post('size') as $size) {
+						$ml = new SizeProducts();
+						$ml->product_id = $model->id;
+						$ml->size_id = $size;
+						$ml->save();
+					}
+				}		
+			}
+			
 			if($model->imageFile = UploadedFile::getInstance($model, 'imageFile')){
-				if ($model->save()) {
+				if ($model->save()){
 						$img = $model->id . '.' . $model->imageFile->extension;
 						$model->imageFile->saveAs('./photo/' . $img);
 						$model->pictures = $img;
 						$model->save(false, ['pictures']);
 						return $this->redirect(['view', 'id' => $model->id]);
-					}
 				}
+			}
 				
 				$model->save();
 				return $this->redirect(['view', 'id' => $model->id]);	
-			}
+		}
 			
         return $this->render('create', ['model' => $model,]);
     }
@@ -211,9 +222,9 @@ class ProductsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-						
-			SizeProducts::deleteAll(['product_id' => $model->id]);
 			
+			SizeProducts::deleteAll(['product_id' => $model->id]);
+
 			if(Yii::$app->request->post('size') && is_array(Yii::$app->request->post('size'))){
 					
 					foreach(Yii::$app->request->post('size') as $size) {
@@ -224,7 +235,7 @@ class ProductsController extends Controller
 				}
 					
 			}
-							
+										
             if($model->imageFile = UploadedFile::getInstance($model, 'imageFile')){
 					if ($model->save()){
 							$img = $model->id . '.' . $model->imageFile->extension;
