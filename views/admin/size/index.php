@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\search\CategoryProductsSearch */
+/* @var $searchModel app\models\search\SizeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Category Products';
+$this->title = 'Sizes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="category-products-index">
+<div class="size-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Category Products', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Size', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,10 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            [
-				'label' => 'Products count',
-				'value' => 'products_count',
-            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

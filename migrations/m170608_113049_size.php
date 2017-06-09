@@ -21,12 +21,12 @@ class m170608_113049_size extends Migration
 		$this->addPrimaryKey('pk-size_products', '{{%size_products}}', ['product_id', 'size_id']);
 		
 		$this->createIndex('idx-size_products-product_id','{{%size_products}}','product_id');
-		$this->createIndex('idx-size_products-size_id','{{%size_products}}','size_id');
+		$this->createIndex('idx-product_size-size_id','{{%size_products}}','size_id');
 		
 		
-		$this->addForeignKey('fk-product_size-products', '{{%size_products}}', 'product_id', '{{%products}}', 'id', 'CASCADE', 'RESTRICT');
-		$this->addForeignKey('fk-product_size-size', '{{%size_products}}', 'size_id', '{{%size}}', 'id', 'CASCADE', 'RESTRICT');
-	 
+		$this->addForeignKey('fk-size_products-product', '{{%size_products}}', 'product_id', '{{%products}}', 'id', 'CASCADE', 'RESTRICT');
+		$this->addForeignKey('fk-size_products-size', '{{%size_products}}', 'size_id', '{{%size}}', 'id', 'CASCADE', 'RESTRICT');
+ 
     }
 
     public function down()

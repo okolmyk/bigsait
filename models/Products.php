@@ -82,6 +82,16 @@ class Products extends \yii\db\ActiveRecord
         return $this->hasOne(Markets::className(), ['id' => 'id_markets']);
     }
     
+    public function getSizeProducts()
+    {
+        return $this->hasMany(SizeProducts::className(), ['product_id' => 'id']);
+    }
+    
+    public function getSize()
+    {
+        return $this->hasMany(Size::className(), ['id' => 'size_id'])->viaTable('{{%size_products}}', ['product_id' => 'id']);
+    }
+       
     
 /*    public function beforeValidate()
     {

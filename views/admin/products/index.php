@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\Markets;
+use app\models\Size;
+use app\models\SizeProducts;
 use app\models\Products;
 use app\models\CategoryProducts;
 use yii\helpers\ArrayHelper;
@@ -57,6 +59,14 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => 'sex_category',
 				'value' => 'sex_category',
 				'filter' => Products::find()->select(['sex_category', 'id'])->indexBy('sex_category')->column(),
+            ],
+            
+            [
+				'attribute' => 'size_id',
+				'filter' => Size::find()->select(['name', 'id'])->indexBy('id')->column(),
+				'value' => function (Products $products){
+					return implode(', ', ArrayHelper::map($products->size, 'id', 'name'));
+				} 
             ],
             
             'pictures',

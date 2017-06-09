@@ -2,6 +2,8 @@
 
 use app\models\Markets;
 use app\models\CategoryProducts;
+use app\models\SizeProducts;
+use app\models\Size;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -28,6 +30,8 @@ use yii\web\UploadedFile;
     <?php // echo $form->field($model, 'pictures')->textInput(['maxlength' => true]) ?>
     
 	<?= $form->field($model, 'imageFile')->fileInput(); ?>
+	
+	<?= Html::checkboxList('size', ArrayHelper::getColumn(SizeProducts::find()->where(['product_id'=>$model->id])->all(), 'size_id'), ArrayHelper::map(Size::find()->all() , 'id', 'name'), ['separator'=>'<br>']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

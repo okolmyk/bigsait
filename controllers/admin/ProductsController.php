@@ -5,6 +5,7 @@ namespace app\controllers\admin;
 use Yii;
 use app\models\Products;
 use app\models\CategoryProducts;
+use app\models\SizeProducts;
 use app\models\search\ProductsSearch;
 use app\models\User;
 use app\controllers\admin\Users;
@@ -151,6 +152,33 @@ class ProductsController extends Controller
         $model = new Products();
 
         if ($model->load(Yii::$app->request->post())) {
+
+			if($model->imageFile = UploadedFile::getInstance($model, 'imageFile')){
+				if ($model->save()) {
+						$img = $model->id . '.' . $model->imageFile->extension;
+						$model->imageFile->saveAs('./photo/' . $img);
+						$model->pictures = $img;
+						$model->save(false, ['pictures']);
+						return $this->redirect(['view', 'id' => $model->id]);
+					}
+				}
+				
+				$model->save();
+				return $this->redirect(['view', 'id' => $model->id]);	
+			}
+			
+        return $this->render('create', ['model' => $model,]);
+    }
+    
+/*    public function actionCreate()
+    {
+        if (!Yii::$app->user->can('create')) {
+			throw new ForbiddenHttpException('Access denied');	
+		}
+        
+        $model = new Products();
+
+        if ($model->load(Yii::$app->request->post())) {
 			if($model->imageFile = UploadedFile::getInstance($model, 'imageFile')){
 				if ($model->save()) {
 						$img = $model->id . '.' . $model->imageFile->extension;
@@ -165,7 +193,7 @@ class ProductsController extends Controller
 			}
 			
         return $this->render('create', ['model' => $model,]);
-    }
+    }*/
 
     /**
      * Updates an existing Products model.
@@ -175,6 +203,48 @@ class ProductsController extends Controller
      */
 
     public function actionUpdate($id)
+    {
+        if (!Yii::$app->user->can('create')) {
+			throw new ForbiddenHttpException('Access denied');	
+		}
+        
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+						
+			SizeProducts::deleteAll(['product_id' => $model->id]);
+			
+			if(Yii::$app->request->post('size') && is_array(Yii::$app->request->post('size'))){
+					
+					foreach(Yii::$app->request->post('size') as $size) {
+					$ml = new SizeProducts();
+					$ml->product_id = $model->id;
+					$ml->size_id = $size;
+					$ml->save();
+				}
+					
+			}
+							
+            if($model->imageFile = UploadedFile::getInstance($model, 'imageFile')){
+					if ($model->save()){
+							$img = $model->id . '.' . $model->imageFile->extension;
+							$model->imageFile->saveAs('./photo/' . $img);
+							$model->pictures = $img;
+							$model->save(false, ['pictures']);
+							return $this->redirect(['view', 'id' => $model->id]);
+						}
+				}
+				$model->save();
+				return $this->redirect(['view', 'id' => $model->id]);
+					
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
+    
+/*    public function actionUpdate($id)
     {
         if (!Yii::$app->user->can('create')) {
 			throw new ForbiddenHttpException('Access denied');	
@@ -200,7 +270,7 @@ class ProductsController extends Controller
                 'model' => $model,
             ]);
         }
-    }
+    }*/
 
     /**
      * Deletes an existing Products model.

@@ -5,23 +5,20 @@ namespace app\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Products;
+use app\models\SizeProducts;
 
 /**
- * ProductsSearch represents the model behind the search form about `app\models\Products`.
+ * SizeProductsSearch represents the model behind the search form about `app\models\SizeProducts`.
  */
-class ProductsSearch extends Products
+class SizeProductsSearch extends SizeProducts
 {
-    
-    public $size_id;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'id_category', 'size_id', 'id_markets'], 'integer'],
-            [['name', 'sex_category', 'pictures'], 'safe'],
+            [['product_id', 'size_id'], 'integer'],
         ];
     }
 
@@ -41,10 +38,9 @@ class ProductsSearch extends Products
      *
      * @return ActiveDataProvider
      */
-        
-	public function search($params)
+    public function search($params)
     {
-        $query = Products::find()->with(['idCategory', 'idMarkets', 'size'])->joinWith(['sizeProducts'], false);
+        $query = SizeProducts::find();
 
         // add conditions that should always apply here
 
@@ -62,15 +58,9 @@ class ProductsSearch extends Products
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'id_category' => $this->id_category,
-            'id_markets' => $this->id_markets,
-            '{{%size_products}}.size_id' => $this->size_id,
+            'product_id' => $this->product_id,
+            'size_id' => $this->size_id,
         ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'sex_category', $this->sex_category])
-            ->andFilterWhere(['like', 'pictures', $this->pictures]);
 
         return $dataProvider;
     }

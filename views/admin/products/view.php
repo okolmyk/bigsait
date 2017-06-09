@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
+use app\models\Products;
+use yii\helpers\ArrayHelper;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Products */
@@ -47,6 +50,14 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => 'Pictures name file on Data Base',
 				'value' => $model->pictures,
            ], 
+           
+           [
+				'label' => 'Size',
+				'value' => function(Products $products){
+						return implode(', ', ArrayHelper::map($products->size, 'id', 'name'));
+				}
+           ],
+           
            [
 				'label' => 'Pictures',
 				'format' => 'raw',

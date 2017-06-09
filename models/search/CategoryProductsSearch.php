@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\CategoryProducts;
+use app\models\Products;
+use yii\db\Expression;
 
 /**
  * CategoryProductsSearch represents the model behind the search form about `app\models\CategoryProducts`.
@@ -41,7 +43,12 @@ class CategoryProductsSearch extends CategoryProducts
      */
     public function search($params)
     {
-        $query = CategoryProducts::find();
+        //$query = CategoryProducts::find();
+        
+        $query = CategoryProducts::find()
+        ->select(['{{%category_products}}.*', 'products_count' => new Expression('COUNT({{%products}}.id)')])
+        ->joinWith(['products'], false)
+        ->groupBy(['{{%category_products}}.id']);
 
         // add conditions that should always apply here
 
