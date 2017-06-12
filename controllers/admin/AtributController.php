@@ -3,17 +3,16 @@
 namespace app\controllers\admin;
 
 use Yii;
-use app\models\Size;
-use app\models\search\SizeSearch;
+use app\models\Atribut;
+use app\models\search\AtributSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\ForbiddenHttpException;
 
 /**
- * SizeController implements the CRUD actions for Size model.
+ * AtributController implements the CRUD actions for Atribut model.
  */
-class SizeController extends Controller
+class AtributController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,12 +30,12 @@ class SizeController extends Controller
     }
 
     /**
-     * Lists all Size models.
+     * Lists all Atribut models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SizeSearch();
+        $searchModel = new AtributSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +45,7 @@ class SizeController extends Controller
     }
 
     /**
-     * Displays a single Size model.
+     * Displays a single Atribut model.
      * @param integer $id
      * @return mixed
      */
@@ -58,20 +57,16 @@ class SizeController extends Controller
     }
 
     /**
-     * Creates a new Size model.
+     * Creates a new Atribut model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($product_id = null)
+    public function actionCreate()
     {
-        if (!Yii::$app->user->can('create')) {
-			throw new ForbiddenHttpException('Access denied');	
-		}
-        
-        $model = new Size();
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-				return $this->redirect(['view', 'id' => $model->id]);
+        $model = new Atribut();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) { 
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -80,17 +75,13 @@ class SizeController extends Controller
     }
 
     /**
-     * Updates an existing Size model.
+     * Updates an existing Atribut model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        if (!Yii::$app->user->can('create')) {
-			throw new ForbiddenHttpException('Access denied');	
-		}
-        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -103,32 +94,28 @@ class SizeController extends Controller
     }
 
     /**
-     * Deletes an existing Size model.
+     * Deletes an existing Atribut model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
     {
-        if (!Yii::$app->user->can('create')) {
-			throw new ForbiddenHttpException('Access denied');	
-		}
-        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Size model based on its primary key value.
+     * Finds the Atribut model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Size the loaded model
+     * @return Atribut the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Size::findOne($id)) !== null) {
+        if (($model = Atribut::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

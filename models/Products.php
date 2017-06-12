@@ -91,6 +91,16 @@ class Products extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Size::className(), ['id' => 'size_id'])->viaTable('{{%size_products}}', ['product_id' => 'id']);
     }
+     
+    public function getValue()
+    {
+        return $this->hasMany(Value::className(), ['product_id' => 'id']);
+    }
+    
+    public function getAtribut()
+    {
+        return $this->hasMany(Atribut::className(), ['id' => 'atribut_id'])->viaTable('{{%value}}', ['product_id', 'id']);
+    }
        
     
 /*    public function beforeValidate()

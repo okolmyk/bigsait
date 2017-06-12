@@ -5,23 +5,22 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%size}}".
+ * This is the model class for table "{{%atribut}}".
  *
  * @property integer $id
  * @property string $name
  *
- * @property SizeProducts[] $sizeProducts
+ * @property Value[] $values
  * @property Products[] $products
  */
-class Size extends \yii\db\ActiveRecord
+class Atribut extends \yii\db\ActiveRecord
 {
-    //public $products_count_size;
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%size}}';
+        return '{{%atribut}}';
     }
 
     /**
@@ -49,9 +48,9 @@ class Size extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSizeProducts()
+    public function getValues()
     {
-        return $this->hasMany(SizeProducts::className(), ['size_id' => 'id']);
+        return $this->hasMany(Value::className(), ['atribut_id' => 'id']);
     }
 
     /**
@@ -59,6 +58,6 @@ class Size extends \yii\db\ActiveRecord
      */
     public function getProducts()
     {
-        return $this->hasMany(Products::className(), ['id' => 'product_id'])->viaTable('{{%size_products}}', ['size_id' => 'id']);
+        return $this->hasMany(Products::className(), ['id' => 'product_id'])->viaTable('{{%value}}', ['atribut_id' => 'id']);
     }
 }

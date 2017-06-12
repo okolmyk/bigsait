@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use app\models\Markets;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\MarketsSearch */
@@ -26,8 +27,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'name',
+          //  'name',
            // 'avatar',
+           
+           [
+				'attribute' => 'name',
+				'value' => 'name',
+				'filter' => Markets::find()->select(['name', 'id'])->indexBy('name')->column(),
+				
+           ],
+           
            [
 				'label' => 'avatar',
 				'format' => 'raw',

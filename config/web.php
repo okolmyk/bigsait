@@ -72,6 +72,14 @@ $config = [
 				
 				'admin/users/<action:view|update|create>/<id:\d*>' => 'admin/users/<action>',
 				
+				'admin/size/<action:view|update|create>/<id:\d*>' => 'admin/size/<action>',
+				
+				'admin/product-size/<action:view|update|create>/<id:\d*>' => 'admin/product-size/<action>',
+				
+				'admin/atribut/<action:view|update|create>/<id:\d*>' => 'admin/atribut/<action>',
+				
+				'admin/value/<action:view|update|create>/<id:\d*>' => 'admin/value/<action>',
+				
 				//'users' => 'admin/users/',
 				
 				/*url для api*/

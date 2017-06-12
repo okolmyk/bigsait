@@ -5,7 +5,8 @@ use yii\widgets\DetailView;
 use yii\helpers\Url;
 use app\models\Products;
 use yii\helpers\ArrayHelper;
-
+use yii\grid\GridView;
+use yii\data\ActiveDataProvider;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Products */
@@ -70,5 +71,28 @@ $this->params['breadcrumbs'][] = $this->title;
            ],
         ],
     ]) ?>
+    
+    
+    <p>
+        <?= Html::a('Create Value For This Product', ['admin/value/create', 'product_id' => $model->id], ['class' => 'btn btn-success']) ?>
+    </p>
+     
+     <?= GridView::widget([
+        'dataProvider' => new ActiveDataProvider(['query' => $model->getValue()]),     
+        'columns' => [
+          //  ['class' => 'yii\grid\SerialColumn'],
+            [	
+				'attribute' => 'atribut',
+				'value' => 'atribut.name',
+            ],
+         
+            'value',
+            
+            [	
+				'class' => 'yii\grid\ActionColumn',
+				'controller' => 'admin\value',
+            ],
+        ],
+    ]); ?>
 
 </div>

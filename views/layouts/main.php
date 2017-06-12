@@ -51,6 +51,10 @@ AppAsset::register($this);
 					['label' =>  'Size', 'url' => ['/admin/size/']],
 					
 					['label' =>  'Size-Products', 'url' => ['/admin/size-products/']],
+					
+					['label' =>  'Atribut', 'url' => ['/admin/atribut/']],
+					
+					['label' =>  'Value', 'url' => ['/admin/value/']],
 							 
 			]],
 			

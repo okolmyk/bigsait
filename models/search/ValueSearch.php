@@ -5,13 +5,12 @@ namespace app\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Size;
-use yii\db\Expression;
+use app\models\Value;
 
 /**
- * SizeSearch represents the model behind the search form about `app\models\Size`.
+ * ValueSearch represents the model behind the search form about `app\models\Value`.
  */
-class SizeSearch extends Size
+class ValueSearch extends Value
 {
     /**
      * @inheritdoc
@@ -19,8 +18,8 @@ class SizeSearch extends Size
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name'], 'safe'],
+            [['product_id', 'atribut_id'], 'integer'],
+            [['value'], 'safe'],
         ];
     }
 
@@ -42,12 +41,7 @@ class SizeSearch extends Size
      */
     public function search($params)
     {
-        $query = Size::find();
-		/*$query = Size::find()
-        ->select(['{{%size}}.*', 'products_count_size' => new Expression('COUNT({{%products}}.id)')])
-        ->joinWith(['products'], false)
-        ->groupBy(['{{%size}}.id']);*/
-        
+        $query = Value::find();
 
         // add conditions that should always apply here
 
@@ -65,10 +59,11 @@ class SizeSearch extends Size
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'product_id' => $this->product_id,
+            'atribut_id' => $this->atribut_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'value', $this->value]);
 
         return $dataProvider;
     }

@@ -5,13 +5,12 @@ namespace app\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Size;
-use yii\db\Expression;
+use app\models\Atribut;
 
 /**
- * SizeSearch represents the model behind the search form about `app\models\Size`.
+ * AtributSearch represents the model behind the search form about `app\models\Atribut`.
  */
-class SizeSearch extends Size
+class AtributSearch extends Atribut
 {
     /**
      * @inheritdoc
@@ -42,12 +41,7 @@ class SizeSearch extends Size
      */
     public function search($params)
     {
-        $query = Size::find();
-		/*$query = Size::find()
-        ->select(['{{%size}}.*', 'products_count_size' => new Expression('COUNT({{%products}}.id)')])
-        ->joinWith(['products'], false)
-        ->groupBy(['{{%size}}.id']);*/
-        
+        $query = Atribut::find();
 
         // add conditions that should always apply here
 
