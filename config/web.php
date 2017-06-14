@@ -64,7 +64,7 @@ $config = [
 
 				'admin/category-products/<action:view|update>/<id:\d*>' => 'admin/category-products/<action>',	
 				
-				'admin/products/<action:view|update>/<id:\d*>' => 'admin/products/<action>',	
+				'admin/products/<action:view|update|productsone>/<id:\d*>' => 'admin/products/<action>',	
 				
 				'admin/markets/<action:view|update>/<id:\d*>' => 'admin/markets/<action>',	
 				

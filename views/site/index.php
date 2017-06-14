@@ -26,11 +26,6 @@ $this->title = 'Big Sait Repit';
 					'itemView' => 'list_index',
 				]);
 
-				
-				//var_dump(Yii::$app->user->identity->userGroup);
-				//echo Yii::$app->user->getId();
-				//echo Yii::$app->user->getIsGuest();
-			
 			?>
    
 		</div>

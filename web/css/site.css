@@ -125,7 +125,7 @@ a.desc:after {
 .summary{
 	display: none;
 }
-
+/* все что ниже точно мое*/
 /*
 .my_obr{
 	width: 288px;
@@ -136,6 +136,53 @@ a.desc:after {
 }
 */
 .my_photo img{
-	width: 200px;
-	height: 200px;
+	max-width: 200px;
+	max-height: 300px;
 }
+
+.my_photo_main img{
+	max-width: 280px;
+	max-height: 300px;
+}
+
+
+.main_products{
+/*	border: 1px solid black;*/
+	margin-bottom: 10px;
+	margin-left: 18%;
+	margin-top: -5%;
+	width: 700px;
+	padding: 5%;
+}
+
+.dop_products{
+/*	border: 1px solid red;*/
+	margin: 10px;
+/*	width: 400px;*/
+	float: left;
+	margin-left: 35px;	
+	margin-top: 45px;	
+}
+
+.my_photo_cover{
+/*	border: 1px solid green;*/
+	width: 300px;
+	height: 300px;
+	margin-top: -300px;
+}
+
+.my_description_text_cover{
+/*	border: 1px solid blue;*/
+	width: 300px;
+	height: 300px;
+	margin-left: 300px;
+}
+
+.midle_border{
+	border: 1px solid black;
+	width: 160%;
+	margin-left: -200px;
+	margin-top: 40px;
+}
+
+

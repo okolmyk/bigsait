@@ -205,7 +205,6 @@ class ProductsController extends Controller
 			
         return $this->render('create', ['model' => $model,]);
     }*/
-
     /**
      * Updates an existing Products model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -315,4 +314,27 @@ class ProductsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    
+    public function actionProductsone($id){
+
+		$result_one = Products::find()->where(['id' => $id])->one();
+       
+        $data1 = new ActiveDataProvider([	      
+			'query' => Products::find()->with(['idCategory', 'idMarkets'])->where(['id' => $id]), 
+			'pagination' => false,
+        
+        ]);
+        
+        $data2 = new ActiveDataProvider([	      
+			'query' => Products::find()->with(['idCategory', 'idMarkets'])->where(['id_markets' => $result_one->id_markets])->andWhere('id != :id', ['id' => $id])->orderBy(['id' => SORT_DESC])->limit(4), 
+			'pagination' => false,
+        
+        ]);
+
+        return $this->render('productsone', ['data1' => $data1, 'data2' => $data2]);
+	
+	}
+	
+	
 }

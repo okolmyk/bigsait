@@ -101,7 +101,7 @@ class Products extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Atribut::className(), ['id' => 'atribut_id'])->viaTable('{{%value}}', ['product_id', 'id']);
     }
-       
+          
     
 /*    public function beforeValidate()
     {

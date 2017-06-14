@@ -43,11 +43,6 @@ class SizeSearch extends Size
     public function search($params)
     {
         $query = Size::find();
-		/*$query = Size::find()
-        ->select(['{{%size}}.*', 'products_count_size' => new Expression('COUNT({{%products}}.id)')])
-        ->joinWith(['products'], false)
-        ->groupBy(['{{%size}}.id']);*/
-        
 
         // add conditions that should always apply here
 
