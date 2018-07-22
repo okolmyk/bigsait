@@ -15,17 +15,12 @@ use Yii;
 class CategoryProducts extends \yii\db\ActiveRecord
 {
     public $products_count;
-    /**
-     * @inheritdoc
-     */
+
     public static function tableName()
     {
         return '{{%category_products}}';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
@@ -34,9 +29,6 @@ class CategoryProducts extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
@@ -45,9 +37,6 @@ class CategoryProducts extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getProducts()
     {
         return $this->hasMany(Products::className(), ['id_category' => 'id']);

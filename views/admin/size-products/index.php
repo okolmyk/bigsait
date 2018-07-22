@@ -25,19 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
            // 'product_id',
-           //'size_id',           
+           //'size_id',
+           'productName',
+            /*[
+        				'attribute' => 'product_id',
+        				'value' => 'product.name',
+        				'filter' => Products::find()->select(['name', 'id'])->indexBy('id')->column(),
+            ],*/
+
             [
-				'attribute' => 'product_id',
-				'value' => 'product.name',
-				'filter' => Products::find()->select(['name', 'id'])->indexBy('id')->column(),	
-            ],
-            
-            [
-				'attribute' => 'size_id',
-				'value' => 'size.name',
-				'filter' => Size::find()->select(['name', 'id'])->indexBy('id')->column(),	
+        				'attribute' => 'size_id',
+        				'value' => 'size.name',
+        				'filter' => Size::find()->select(['name', 'id'])->indexBy('id')->column(),
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

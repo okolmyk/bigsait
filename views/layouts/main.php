@@ -26,6 +26,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    if(Yii::$app->user->isGuest){
     NavBar::begin([
         'brandLabel' => 'My Company',
         'brandUrl' => Yii::$app->homeUrl,
@@ -36,44 +37,24 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            
-            ['label' =>  'Admin', 'items' => [
-						
-					['label' =>  'Category-Products', 'url' => ['/admin/category-products/']],
-							 
-					['label' =>  'Markets', 'url' => ['/admin/markets/']],
-					
-					['label' =>  'Products', 'url' => ['/admin/products/']],
-							 
-					['label' =>  'Users', 'url' => ['/admin/users/']],
-					
-					['label' =>  'Size', 'url' => ['/admin/size/']],
-					
-					['label' =>  'Size-Products', 'url' => ['/admin/size-products/']],
-					
-					['label' =>  'Atribut', 'url' => ['/admin/atribut/']],
-					
-					['label' =>  'Value', 'url' => ['/admin/value/']],
-							 
-			]],
-			
-			['label' =>  'Tovars', 'items' => [
-						
-					['label' =>  'Man', 'url' => ['/admin/man/']],
-							 
-					['label' =>  'Woman', 'url' => ['/admin/woman/']],	
-			]],
-						
-          //  ['label' => 'About', 'url' => ['/site/about']],
-         //   ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Главная', 'url' => ['/site/index']],
+
+      			['label' =>  'Товары', 'items' => [
+
+      					['label' =>  'Мужчинам', 'url' => ['/admin/man/']],
+
+      					['label' =>  'Женщинам', 'url' => ['/admin/woman/']],
+      			]],
+
+            ['label' => 'Registration', 'url' => ['/admin/users/registration']],
+
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Login', 'url' => ['/admin/users/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->login . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -82,6 +63,105 @@ AppAsset::register($this);
         ],
     ]);
     NavBar::end();
+  }
+  if(!Yii::$app->user->isGuest && Yii::$app->user->identity->userGroup !== 'admin'){
+    NavBar::begin([
+        'brandLabel' => 'My Company',
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => [
+            'class' => 'navbar-inverse navbar-fixed-top',
+        ],
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => [
+            ['label' => 'Главная', 'url' => ['/site/index']],
+
+            ['label' => 'Моя страница', 'url' => ['/admin/users/mypage']],
+
+      			['label' =>  'Товары', 'items' => [
+
+      					['label' =>  'Мужчинам', 'url' => ['/admin/man/']],
+
+      					['label' =>  'Женщинам', 'url' => ['/admin/woman/']],
+      			]],
+
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Login', 'url' => ['/admin/users/login']]
+            ) : (
+                '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->login . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
+            )
+        ],
+    ]);
+    NavBar::end();
+  }
+
+  if(!Yii::$app->user->isGuest && Yii::$app->user->identity->userGroup === 'admin'){
+    NavBar::begin([
+        'brandLabel' => 'My Company',
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => [
+            'class' => 'navbar-inverse navbar-fixed-top',
+        ],
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => [
+            ['label' => 'Главная', 'url' => ['/site/index']],
+
+            ['label' => 'Моя страница', 'url' => ['/admin/users/mypage']],
+
+            ['label' =>  'Админ меню', 'items' => [
+
+    					['label' =>  'Категории продуктов', 'url' => ['/admin/category-products/']],
+
+    					['label' =>  'Магазины', 'url' => ['/admin/markets/']],
+
+    					['label' =>  'Продукты', 'url' => ['/admin/products/']],
+
+    					['label' =>  'Юзеры', 'url' => ['/admin/users/']],
+
+    					['label' =>  'Размеры', 'url' => ['/admin/size/']],
+
+    					['label' =>  'Размеры продуктов', 'url' => ['/admin/size-products/']],
+
+              ['label' =>  'Юзеры и продукты', 'url' => ['/admin/users-products/']],
+
+    					['label' =>  'Атрибуты', 'url' => ['/admin/atribut/']],
+
+    					['label' =>  'Дополнительные свойства', 'url' => ['/admin/value/']],
+
+			]],
+
+			['label' =>  'Товары', 'items' => [
+
+					['label' =>  'Мужчинам', 'url' => ['/admin/man/']],
+
+					['label' =>  'Женщинам', 'url' => ['/admin/woman/']],
+			]],
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Login', 'url' => ['/admin/users/login']]
+            ) : (
+                '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->login . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
+            )
+        ],
+    ]);
+    NavBar::end();
+  }
     ?>
 
     <div class="container">
@@ -94,9 +174,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-left">&copy; Big Sait Repit <?= date('Y') ?></p>
     </div>
 </footer>
 

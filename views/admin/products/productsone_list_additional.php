@@ -7,9 +7,7 @@ use yii\data\ActiveDataProvider;
 use app\models\Products;
 
 ?>
-	
-	
-	
-	<div class="my_photo"> <?= Html::a(Html::img('/photo/'.$model->pictures), Url::to(['/admin/products/productsone/', 'id' => $model->id])) ?> </div> </br> 
 
 
+
+	<div class="my_photo"> <?= Html::a(Html::img('/photo/'.$model->pictures), Url::to(['/admin/products/productsone/', 'id' => $model->id])) ?> </div> </br>

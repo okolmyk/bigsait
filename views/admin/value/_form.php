@@ -15,9 +15,9 @@ use app\models\Atribut;
     <?php $form = ActiveForm::begin(); ?>
 
     <?php // echo $form->field($model, 'product_id')->textInput() ?>
-    
+
     <?php // echo $form->field($model, 'atribut_id')->textInput() ?>
-    
+
     <?= $form->field($model, 'product_id')->dropDownList(Products::find()->select(['name', 'id'])->indexBy('id')->column()) ?>
 
     <?= $form->field($model, 'atribut_id')->dropDownList(Atribut::find()->select(['name', 'id'])->indexBy('id')->column()) ?>

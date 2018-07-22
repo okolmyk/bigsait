@@ -16,30 +16,22 @@ use Yii;
 class Markets extends \yii\db\ActiveRecord
 {
     public $imageFile;
-    /**
-     * @inheritdoc
-     */
+
     public static function tableName()
     {
         return '{{%markets}}';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
             [['name'], 'required'],
             [['name', 'avatar'], 'string', 'max' => 255],
-            
+
             [['imageFile'], 'file', 'extensions' => 'png, jpg', 'skipOnEmpty' => false],
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
@@ -49,9 +41,6 @@ class Markets extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getProducts()
     {
         return $this->hasMany(Products::className(), ['id_markets' => 'id']);

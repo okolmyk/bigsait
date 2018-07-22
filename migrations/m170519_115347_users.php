@@ -7,13 +7,14 @@ class m170519_115347_users extends Migration
     public function up()
     {
 		$this->createTable('{{%users}}', [
-					
+
 					'id' => $this->primaryKey(),
-					'name' => $this->string()->notNull(),
-					'alias' => $this->string()->notNull(),
+					'name' => $this->string(),
+					'alias' => $this->string(),
 					'login' => $this->string()->notNull(),
 					'password' => $this->string()->notNull(),
-					'username' => $this->string()->notNull(),
+          'email' => $this->string()->notNull(),
+					'username' => $this->string(),
 					'auth_key' => $this->integer(),
 					'access_token' => $this->integer(),
 					'userGroup' => 'ENUM("admin", "user")',

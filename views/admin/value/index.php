@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpersArrayHelper;
 use yii\grid\GridView;
+use app\models\Products;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\ValueSearch */
@@ -25,17 +27,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'product_id',
-            
-            [
-				'attribute' => 'product_id',
-				'value' => 'product.name',
-            ],
-            
-            [
-				'attribute' => 'atribut_id',
-				'value' => 'product.name',
-            ],
-            
+
+            'productName',
+
+            /*[
+      				'attribute' => 'product_id',
+      				'value' => 'product.name',
+            ],*/
+
+            'atributName',
+
+            /*[
+      				'attribute' => 'atribut_id',
+      				'value' => 'atribut.name',
+            ],*/
+
             //'atribut_id',
             'value',
 

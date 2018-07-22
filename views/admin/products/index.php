@@ -35,50 +35,50 @@ $this->params['breadcrumbs'][] = $this->title;
            // 'id_category',
            // 'id_markets',
            // 'sex_category',
-           
+
             [
-				'attribute' => 'name',
-				'value' => 'name',	
-				'filter' => Products::find()->select(['name', 'id'])->indexBy('name')->column(),
+      				'attribute' => 'name',
+      				'value' => 'name',
+      				'filter' => Products::find()->select(['name', 'id'])->indexBy('name')->column(),
             ],
-           
-           
+
+
             [
-				'attribute' => 'id_category',
-				'value' => 'idCategory.name',
-				'filter' => CategoryProducts::find()->select(['name', 'id'])->indexBy('id')->column(), 	
-			],
-			
+      				'attribute' => 'id_category',
+      				'value' => 'idCategory.name',
+      				'filter' => CategoryProducts::find()->select(['name', 'id'])->indexBy('id')->column(),
+			      ],
+
             [
-				'attribute' => 'id_markets',
-				'value' => 'idMarkets.name',
-				'filter' => Markets::find()->select(['name', 'id'])->indexBy('id')->column(),
-			],
-           
+      				'attribute' => 'id_markets',
+      				'value' => 'idMarkets.name',
+				      'filter' => Markets::find()->select(['name', 'id'])->indexBy('id')->column(),
+			      ],
+
             [
-				'attribute' => 'sex_category',
-				'value' => 'sex_category',
-				'filter' => Products::find()->select(['sex_category', 'id'])->indexBy('sex_category')->column(),
+      				'attribute' => 'sex_category',
+      				'value' => 'sex_category',
+				      'filter' => Products::find()->select(['sex_category', 'id'])->indexBy('sex_category')->column(),
             ],
-            
+
             [
-				'attribute' => 'size_id',
-				'filter' => Size::find()->select(['name', 'id'])->indexBy('id')->column(),
-				'value' => function (Products $products){
-					return implode(', ', ArrayHelper::map($products->size, 'id', 'name'));
-				} 
+      				'attribute' => 'size_id',
+      				'filter' => Size::find()->select(['name', 'id'])->indexBy('id')->column(),
+      				'value' => function (Products $products){
+					               return implode(', ', ArrayHelper::map($products->size, 'id', 'name'));
+				               }
             ],
-            
-            'pictures',
+
+             'pictures',
             [
-				'label' => 'Pictures',
-				'format' => 'raw',
-				'value' => function($data){
-					return Html::img(Url::toRoute('photo/'.$data->pictures),[
-						'alt'=>'картинка',
-						'style' => 'width:70px;'
-						]);
-					},
+      				'label' => 'Pictures',
+      				'format' => 'raw',
+      				'value' => function($data){
+					            return Html::img(Url::toRoute('photo/'.$data->pictures),[
+						         'alt'=>'картинка',
+						         'style' => 'width:70px;'
+						         ]);
+					     },
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

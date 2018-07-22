@@ -7,17 +7,14 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Products;
 use app\models\Size;
-
 /**
  * ProductsSearch represents the model behind the search form about `app\models\Products`.
  */
 class ProductsSearch extends Products
 {
-    
+
     public $size_id;
-    /**
-     * @inheritdoc
-     */
+
     public function rules()
     {
         return [
@@ -26,9 +23,6 @@ class ProductsSearch extends Products
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -42,7 +36,7 @@ class ProductsSearch extends Products
      *
      * @return ActiveDataProvider
      */
-        
+
 	public function search($params)
     {
         $query = Products::find()->with(['idCategory', 'idMarkets', 'size'])->joinWith(['sizeProducts'], false);

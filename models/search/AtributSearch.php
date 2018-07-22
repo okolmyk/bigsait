@@ -12,9 +12,7 @@ use app\models\Atribut;
  */
 class AtributSearch extends Atribut
 {
-    /**
-     * @inheritdoc
-     */
+
     public function rules()
     {
         return [

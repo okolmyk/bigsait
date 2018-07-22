@@ -20,17 +20,17 @@ use yii\web\UploadedFile;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    
+
 	<?= $form->field($model, 'id_category')->dropDownList(CategoryProducts::find()->select(['name', 'id'])->indexBy('id')->column(), ['prompt', '']) ?>
-   
-	<?= $form->field($model, 'id_markets')->dropDownList(Markets::find()->select(['name', 'id'])->indexBy('id')->column(), ['prompt', '']) ?>  
+
+	<?= $form->field($model, 'id_markets')->dropDownList(Markets::find()->select(['name', 'id'])->indexBy('id')->column(), ['prompt', '']) ?>
 
 	<?= $form->field($model, 'sex_category')->DropDownList(['Мужской' => 'Мужской', 'Женский' => 'Женский']) ?>
 
     <?php // echo $form->field($model, 'pictures')->textInput(['maxlength' => true]) ?>
-    
+
 	<?= $form->field($model, 'imageFile')->fileInput(); ?>
-	
+
 	<?= Html::checkboxList('size', ArrayHelper::getColumn(SizeProducts::find()->where(['product_id'=>$model->id])->all(), 'size_id'), ArrayHelper::map(Size::find()->all() , 'id', 'name'), ['separator'=>'<br>']) ?>
 
     <div class="form-group">

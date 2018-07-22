@@ -4,6 +4,7 @@ namespace app\models;
 use yii\web\UploadedFile;
 
 use Yii;
+use app\components\MyBehaviors;
 
 /**
  * This is the model class for table "{{%products}}".
@@ -20,19 +21,25 @@ use Yii;
  */
 class Products extends \yii\db\ActiveRecord
 {
-    
-	public $imageFile;
-    /**
-     * @inheritdoc
-     */
+		public $imageFile;
+
+		public function behaviors()
+		{
+			return [
+
+					 'MyBehaviors' => [
+							'class' => MyBehaviors::className(),
+						 // 'pro' => '',
+						 'attribute' => 'name',
+					]
+			];
+		}
+
     public static function tableName()
     {
         return '{{%products}}';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
@@ -47,13 +54,10 @@ class Products extends \yii\db\ActiveRecord
 
 			//[['imageFile'], 'file', 'extensions' => 'png, jpg', 'skipOnEmpty' => false],
 			[['imageFile'], 'file', 'extensions' => 'png, jpg', 'skipOnEmpty' => true],
-			
+
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
@@ -66,49 +70,43 @@ class Products extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getIdCategory()
     {
         return $this->hasOne(CategoryProducts::className(), ['id' => 'id_category']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getIdMarkets()
     {
         return $this->hasOne(Markets::className(), ['id' => 'id_markets']);
     }
-    
+
     public function getSizeProducts()
     {
         return $this->hasMany(SizeProducts::className(), ['product_id' => 'id']);
     }
-    
+
     public function getSize()
     {
         return $this->hasMany(Size::className(), ['id' => 'size_id'])->viaTable('{{%size_products}}', ['product_id' => 'id']);
     }
-     
+
     public function getValue()
     {
         return $this->hasMany(Value::className(), ['product_id' => 'id']);
     }
-    
+
     public function getAtribut()
     {
         return $this->hasMany(Atribut::className(), ['id' => 'atribut_id'])->viaTable('{{%value}}', ['product_id', 'id']);
     }
-          
-    
+
+
 /*    public function beforeValidate()
     {
 		//die('sdfsf');
-		print_r($_POST); 
+		print_r($_POST);
 		print_r($this->attributes);
 		return parent::beforeValidate();
 	}*/
-    
+
 }

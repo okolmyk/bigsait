@@ -1,6 +1,6 @@
 <?php
 namespace app\commands;
- 
+
 use Yii;
 use yii\console\Controller;
 use \app\rbac\UserGroupRule;
@@ -10,16 +10,16 @@ use \app\rbac\UserProfileOwnerRule;
 
 class RbacController extends Controller
 {
-  
+
     public function actionInit()
     {
         $authManager = \Yii::$app->authManager;
 		$authManager->removeAll();
-		
+
         // Create roles
         $user = $authManager->createRole('user');
         $admin  = $authManager->createRole('admin');
- 
+
         // Create simple, based on action{$NAME} permissions
         $login  = $authManager->createPermission('login');
         $logout = $authManager->createPermission('logout');
@@ -30,7 +30,7 @@ class RbacController extends Controller
         $update = $authManager->createPermission('update');
         $delete = $authManager->createPermission('delete');
         $create = $authManager->createPermission('create');
- 
+
         // Add permissions in Yii::$app->authManager
         $authManager->add($login);
         $authManager->add($logout);
@@ -41,11 +41,11 @@ class RbacController extends Controller
         $authManager->add($update);
         $authManager->add($delete);
         $authManager->add($create);
-        
+
         // Add roles in Yii::$app->authManager
         $authManager->add($user);
         $authManager->add($admin);
- 
+
         // Add permission-per-role in Yii::$app->authManager
         // user
         $authManager->addChild($user, $login);
@@ -60,13 +60,12 @@ class RbacController extends Controller
         $authManager->addChild($user, $update);
         $authManager->addChild($admin, $delete);
         $authManager->addChild($admin, $user);
-        
+
         //навесить роль на id юзера
         $authManager->assign($admin, 1);
         $authManager->assign($admin, 3);
         $authManager->assign($user, 2);
-    }  
-    
-    
-}
+    }
 
+
+}

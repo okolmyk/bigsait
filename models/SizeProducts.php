@@ -15,17 +15,12 @@ use Yii;
  */
 class SizeProducts extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+
     public static function tableName()
     {
         return '{{%size_products}}';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
@@ -36,30 +31,27 @@ class SizeProducts extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
             'product_id' => 'Product ID',
             'size_id' => 'Size ID',
+            'productName' => 'Product Name',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getProduct()
     {
         return $this->hasOne(Products::className(), ['id' => 'product_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getSize()
     {
         return $this->hasOne(Size::className(), ['id' => 'size_id']);
+    }
+
+    public function getProductName()
+    {
+        return $this->product->name;
     }
 }

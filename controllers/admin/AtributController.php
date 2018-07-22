@@ -8,15 +8,14 @@ use app\models\search\AtributSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * AtributController implements the CRUD actions for Atribut model.
  */
 class AtributController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
     public function behaviors()
     {
         return [
@@ -26,13 +25,66 @@ class AtributController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                        [
+                            'actions' => ['index'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                        [
+                            'actions' => ['view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                        [
+                            'actions' => ['create'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function($rule, $action){
+                          			if(Yii::$app->user->identity->userGroup === 'admin'){
+                          						return true;
+                          					}
+                          					else{
+                          						return false;
+                          					}
+                      					}
+                        ],
+                        [
+                            'actions' => ['update'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function($rule, $action){
+                          	   if(Yii::$app->user->identity->userGroup === 'admin'){
+                          				  return true;
+                          		    }
+                          		    else{
+                          				  return false;
+                          		    }
+                    				}
+                        ],
+                        [
+                            'actions' => ['delete'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function($rule, $action){
+                          				if(Yii::$app->user->identity->userGroup === 'admin'){
+                          						return true;
+                          					}
+                          					else{
+                          						return false;
+                          					}
+                        		}
+                        ],
+                    ],
+                ],
         ];
     }
 
-    /**
-     * Lists all Atribut models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         $searchModel = new AtributSearch();
@@ -44,11 +96,7 @@ class AtributController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Atribut model.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionView($id)
     {
         return $this->render('view', [
@@ -56,16 +104,12 @@ class AtributController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Atribut model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+
     public function actionCreate()
     {
         $model = new Atribut();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) { 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -74,12 +118,6 @@ class AtributController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Atribut model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -93,12 +131,7 @@ class AtributController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Atribut model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -106,13 +139,7 @@ class AtributController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Atribut model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Atribut the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($id)
     {
         if (($model = Atribut::findOne($id)) !== null) {

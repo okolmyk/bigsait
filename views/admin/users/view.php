@@ -7,7 +7,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\models\Users */
 
-$this->title = $model->name;
+$this->title = $model->login;
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,24 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
-            'alias',
             'login',
             'password',
-            'username',
             'auth_key',
-            'access_token',
             'userGroup',
             'avatar',
             [
-				'label' => 'Avatar',
-				'format' => 'raw',
-				'value' => function($data){
-					return Html::img(Url::toRoute('photo-users/'.$data->avatar),[
-						'alt'=>'картинка',
-						'style' => 'width:70px;'
-						]);
-					},
+      				'label' => 'Avatar',
+      				'format' => 'raw',
+      				'value' => function($data){
+      					return Html::img(Url::toRoute('photo-users/'.$data->avatar),[
+      						'alt'=>'картинка',
+      						'style' => 'width:70px;'
+      						]);
+      				},
            ],
         ],
     ]) ?>

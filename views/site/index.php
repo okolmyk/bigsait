@@ -12,30 +12,25 @@ use yii\helpers\ArrayHelper;
 $this->title = 'Big Sait Repit';
 ?>
 <div class="site-index">
+  
+  <div class="jumbotron">
+      <?php
+      	echo ListView::widget([
+        			'dataProvider' => $dataProvider,
+              'itemView' => 'list_index',
+              'layout' => "<div>{summary}</div><div class='row'>{items}</div><div>{pager}</div>",
+              'summary' => '<div class="my-summary">Показано {count} из {totalCount}</div>',
+              'options' => [
+                  'tag' => 'div',
+                  'class' => 'container',
+                ],
+              'itemOptions' => [
+                  'tag' => 'div',
+                  'class' => 'col-xs-3 col-sm-3 col-md-3 col-lg-3 my-cl',
+                ],
+            ]);
+      	?>
+  </div>
 
-    <div class="jumbotron">
-        <h1>Главная страница</h1>
-
-        <p class="lead">Моего проекта</p>
-        
-		  <div class="list_obr"> 
-			<?php
-			
-			echo ListView::widget([
-					'dataProvider' => $dataProvider,
-					'itemView' => 'list_index',
-				]);
-
-			?>
-   
-		</div>
-		
-    </div>
-
-    <div class="body-content">
-
-       
-        </div>
-
-    </div>
-</div>
+  </div>
+<!-- </div> -->

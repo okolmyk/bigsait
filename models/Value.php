@@ -16,17 +16,12 @@ use Yii;
  */
 class Value extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+
     public static function tableName()
     {
         return '{{%value}}';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
@@ -38,31 +33,34 @@ class Value extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
             'product_id' => 'Product ID',
             'atribut_id' => 'Atribut ID',
+            'productName' => 'Product Name',
+            'atributName' => 'Atribut Name',
             'value' => 'Value',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getAtribut()
     {
         return $this->hasOne(Atribut::className(), ['id' => 'atribut_id']);
     }
-       
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getProduct()
     {
         return $this->hasOne(Products::className(), ['id' => 'product_id']);
+    }
+
+    public function getProductName()
+    {
+        return $this->product->name;
+    }
+
+    public function getAtributName()
+    {
+        return $this->atribut->name;
     }
 }

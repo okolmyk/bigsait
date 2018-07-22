@@ -12,19 +12,16 @@ use app\models\SizeProducts;
  */
 class SizeProductsSearch extends SizeProducts
 {
-    /**
-     * @inheritdoc
-     */
+    public $productName;
+
     public function rules()
     {
         return [
             [['product_id', 'size_id'], 'integer'],
+            [['productName'], 'safe']
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -40,7 +37,7 @@ class SizeProductsSearch extends SizeProducts
      */
     public function search($params)
     {
-        $query = SizeProducts::find();
+        $query = SizeProducts::find()->with(['product', 'size']);
 
         // add conditions that should always apply here
 
@@ -60,7 +57,12 @@ class SizeProductsSearch extends SizeProducts
         $query->andFilterWhere([
             'product_id' => $this->product_id,
             'size_id' => $this->size_id,
+            //'{{%products}}.name' => $this->productName,
         ]);
+
+        $query->joinWith(['product' => function ($q) {
+          $q->where('{{%products}}.name LIKE "%' . $this->productName . '%"');
+        }]);
 
         return $dataProvider;
     }

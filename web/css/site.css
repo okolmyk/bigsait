@@ -125,20 +125,15 @@ a.desc:after {
 .summary{
 	display: none;
 }
+
 /* все что ниже точно мое*/
-/*
-.my_obr{
-	width: 288px;
-    height: 366px;
-	border: 1px solid black;
-	float: left;
-	margin: 10px;
-}
-*/
+
 .my_photo img{
 	max-width: 200px;
-	max-height: 300px;
+	max-height: 280px;
+/*  position: relative;*/
 }
+
 
 .my_photo_main img{
 	max-width: 280px;
@@ -160,8 +155,8 @@ a.desc:after {
 	margin: 10px;
 /*	width: 400px;*/
 	float: left;
-	margin-left: 35px;	
-	margin-top: 45px;	
+	margin-left: 35px;
+	margin-top: 45px;
 }
 
 .my_photo_cover{
@@ -178,11 +173,58 @@ a.desc:after {
 	margin-left: 300px;
 }
 
-.midle_border{
-	border: 1px solid black;
-	width: 160%;
-	margin-left: -200px;
-	margin-top: 40px;
+.my-cl{
+  width: 250px;
+	height: 380px;
+/*  border: 1px solid black;*/
+  padding-top: 5px;
 }
 
 
+.my-cl2{
+  width: 210px;
+	height: 300px;
+/*  border: 1px solid black;*/
+  position: absolute;
+}
+
+.my_button_cover{
+  visibility: hidden;
+  margin-top: 270px;
+}
+
+.my_button_one{
+  width: 25px;
+	height: 48px;
+  background-color: #1E90FF;
+  float: left;
+  color: white;
+  font-size: 24px;
+}
+
+.my_button_two{
+  width: 55px;
+	height: 48px;
+  background-color: #1E90FF;
+  margin-left: 30px;
+  color: white;
+}
+
+.my-cl:hover .my_button_cover{
+  visibility: visible;
+}
+
+.my-summary{
+  margin-bottom: 40px;
+}
+
+.user-avatar img{
+  width: 100px;
+	height: 100px;
+}
+
+.testing{
+  width: 100px;
+	height: 100px;
+  border: 1px solid black;
+}

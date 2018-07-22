@@ -36,61 +36,61 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
            [
-				'label' => 'Id Category',
-				'value' => $model->idCategory->name,
+      				'label' => 'Id Category',
+      				'value' => $model->idCategory->name,
            ],
            [
-				'label' => 'Id Markets',
-				'value' => $model->idMarkets->name,	
+      				'label' => 'Id Markets',
+      				'value' => $model->idMarkets->name,
            ],
            [
-				'label' => 'Sex Category',
-				'value' => $model->sex_category,
+      				'label' => 'Sex Category',
+      				'value' => $model->sex_category,
            ],
            [
-				'label' => 'Pictures name file on Data Base',
-				'value' => $model->pictures,
-           ], 
-           
-           [
-				'label' => 'Size',
-				'value' => function(Products $products){
-						return implode(', ', ArrayHelper::map($products->size, 'id', 'name'));
-				}
+      				'label' => 'Pictures name file on Data Base',
+      				'value' => $model->pictures,
            ],
-           
+
            [
-				'label' => 'Pictures',
-				'format' => 'raw',
-				'value' => function($data){
-					return Html::img(Url::toRoute('photo/'.$data->pictures),[
-						'alt'=>'картинка',
-						'style' => 'width:70px;'
-						]);
-					},
+      				'label' => 'Size',
+      				'value' => function(Products $products){
+      						return implode(', ', ArrayHelper::map($products->size, 'id', 'name'));
+      				}
+           ],
+
+           [
+				    'label' => 'Pictures',
+				    'format' => 'raw',
+				    'value' => function($data){
+					       return Html::img(Url::toRoute('photo/'.$data->pictures),[
+  						     'alt'=>'картинка',
+  						     'style' => 'width:70px;'
+						     ]);
+					     },
            ],
         ],
     ]) ?>
-    
-    
+
+
     <p>
         <?= Html::a('Create Value For This Product', ['admin/value/create', 'product_id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
-     
+
      <?= GridView::widget([
-        'dataProvider' => new ActiveDataProvider(['query' => $model->getValue()]),     
+        'dataProvider' => new ActiveDataProvider(['query' => $model->getValue()]),
         'columns' => [
           //  ['class' => 'yii\grid\SerialColumn'],
-            [	
-				'attribute' => 'atribut',
-				'value' => 'atribut.name',
+            [
+      				'attribute' => 'atribut',
+      				'value' => 'atribut.name',
             ],
-         
+
             'value',
-            
-            [	
-				'class' => 'yii\grid\ActionColumn',
-				'controller' => 'admin\value',
+
+            [
+      				'class' => 'yii\grid\ActionColumn',
+      				'controller' => 'admin\value',
             ],
         ],
     ]); ?>

@@ -45,17 +45,12 @@ class Atribut extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getValues()
     {
         return $this->hasMany(Value::className(), ['atribut_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getProducts()
     {
         return $this->hasMany(Products::className(), ['id' => 'product_id'])->viaTable('{{%value}}', ['atribut_id' => 'id']);

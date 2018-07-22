@@ -36,7 +36,7 @@ return [
             'sign-up',
             'index',
             'view',
-            
+
         ],
     ],
     'admin' => [
@@ -46,7 +46,7 @@ return [
             'create',
             'update',
             'delete',
-            
+
         ],
     ],
 ];

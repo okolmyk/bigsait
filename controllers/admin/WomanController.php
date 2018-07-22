@@ -21,13 +21,16 @@ class WomanController extends Controller
 	public function actionIndex()
 	{
 			$dataProvider = new ActiveDataProvider([
-				
 				'query' => Products::find()->where(['sex_category' => 'Женский'])->with(['idCategory', 'idMarkets']),
-				
-				'pagination' => ['pageSize' => 5],
-			
+				'pagination' => ['pageSize' => 20],
+				'sort' => [
+						'defaultOrder' => [
+							//'id' => SORT_DESC,
+							'id' => SORT_ASC,
+						]
+				],
 			]);
-			
+
 			return $this->render('index', ['dataProvider' => $dataProvider]);
 	}
 }

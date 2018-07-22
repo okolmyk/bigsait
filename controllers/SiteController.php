@@ -14,9 +14,7 @@ use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
     public function behaviors()
     {
         return [
@@ -40,9 +38,6 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function actions()
     {
         return [
@@ -56,37 +51,21 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-			
-			'query' => Products::find()->with(['idCategory', 'idMarkets']), 
-        
-			'pagination' => ['pageSize' => 5],
-			
-			'sort' => [
-					'defaultOrder' => [
-						//'id' => SORT_DESC,
-						'id' => SORT_ASC, 
-					]			
-			],
-        ]);
-        
+      			'query' => Products::find()->with(['idCategory', 'idMarkets']),
+      			'pagination' => ['pageSize' => 20],
+      			'sort' => [
+      					'defaultOrder' => [
+      						//'id' => SORT_DESC,
+      						'id' => SORT_ASC,
+      					]
+      			],
+          ]);
         return $this->render('index', ['dataProvider' => $dataProvider]);
-        
-        //return $this->render('index');
     }
 
-    /**
-     * Login action.
-     *
-     * @return string
-     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -102,11 +81,7 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
+
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -114,11 +89,7 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return string
-     */
+
     public function actionContact()
     {
         $model = new ContactForm();
@@ -132,11 +103,6 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
     public function actionAbout()
     {
         return $this->render('about');

@@ -8,15 +8,14 @@ use app\models\search\ValueSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ValueController implements the CRUD actions for Value model.
  */
 class ValueController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
     public function behaviors()
     {
         return [
@@ -26,13 +25,66 @@ class ValueController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                        [
+                            'actions' => ['index'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                        [
+                            'actions' => ['view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                        [
+                            'actions' => ['create'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function($rule, $action){
+                          			if(Yii::$app->user->identity->userGroup === 'admin'){
+                          						return true;
+                          					}
+                          					else{
+                          						return false;
+                          					}
+                      					}
+                        ],
+                        [
+                            'actions' => ['update'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function($rule, $action){
+                          	   if(Yii::$app->user->identity->userGroup === 'admin'){
+                          				  return true;
+                          		    }
+                          		    else{
+                          				  return false;
+                          		    }
+                    				}
+                        ],
+                        [
+                            'actions' => ['delete'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function($rule, $action){
+                          				if(Yii::$app->user->identity->userGroup === 'admin'){
+                          						return true;
+                          					}
+                          					else{
+                          						return false;
+                          					}
+                        		}
+                        ],
+                    ],
+                ],
         ];
     }
 
-    /**
-     * Lists all Value models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         $searchModel = new ValueSearch();
@@ -44,12 +96,6 @@ class ValueController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Value model.
-     * @param integer $product_id
-     * @param integer $atribut_id
-     * @return mixed
-     */
     public function actionView($product_id, $atribut_id)
     {
         return $this->render('view', [
@@ -57,32 +103,25 @@ class ValueController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Value model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate($product_id = null)
     {
         $model = new Value();
         $model->product_id = $product_id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {			
-			
-			if($_GET){
-				 return $this->redirect(['admin/products/view', 'id' => $model->product_id]);
-         	}
-			else{
-				 return $this->redirect(['view', 'product_id' => $model->product_id, 'atribut_id' => $model->atribut_id]);			
-			}
-        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+      			if($_GET){
+      				 return $this->redirect(['admin/products/view', 'id' => $model->product_id]);
+            }
+      			else{
+      				 return $this->redirect(['view', 'product_id' => $model->product_id, 'atribut_id' => $model->atribut_id]);
+      			}
         } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
     }
-    
+
 /*    public function actionCreate($product_id = null)
     {
         $model = new Value();
@@ -98,13 +137,6 @@ class ValueController extends Controller
         }
     }*/
 
-    /**
-     * Updates an existing Value model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $product_id
-     * @param integer $atribut_id
-     * @return mixed
-     */
     public function actionUpdate($product_id, $atribut_id)
     {
         $model = $this->findModel($product_id, $atribut_id);
@@ -118,13 +150,6 @@ class ValueController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Value model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $product_id
-     * @param integer $atribut_id
-     * @return mixed
-     */
     public function actionDelete($product_id, $atribut_id)
     {
         $this->findModel($product_id, $atribut_id)->delete();
@@ -132,14 +157,7 @@ class ValueController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Value model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $product_id
-     * @param integer $atribut_id
-     * @return Value the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($product_id, $atribut_id)
     {
         if (($model = Value::findOne(['product_id' => $product_id, 'atribut_id' => $atribut_id])) !== null) {

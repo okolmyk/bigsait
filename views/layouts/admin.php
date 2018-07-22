@@ -37,27 +37,27 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            
+
             ['label' =>  'Admin', 'items' => [
-						
+
 					['label' =>  'Category-Products', 'url' => ['/admin/category-products/index']],
-							 
+
 					['label' =>  'Markets', 'url' => ['/admin/markets/index']],
-					
+
 					['label' =>  'Products', 'url' => ['/admin/products/index']],
-							 
+
 					['label' =>  'Users', 'url' => ['/admin/users/index']],
-							 
+
 			]],
-			
+
             ['label' =>  'Tovars', 'items' => [
-						
+
 					['label' =>  'Man', 'url' => ['/admin/man/index']],
-							 
+
 					['label' =>  'Woman', 'url' => ['/admin/woman/index']],
-					
+
 			]],
-						
+
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (

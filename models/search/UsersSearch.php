@@ -18,8 +18,8 @@ class UsersSearch extends Users
     public function rules()
     {
         return [
-            [['id', 'auth_key', 'access_token'], 'integer'],
-            [['name', 'alias', 'login', 'password', 'username', 'userGroup', 'avatar'], 'safe'],
+            [['id', 'auth_key'], 'integer'],
+            [['login', 'password', 'email', 'userGroup', 'avatar'], 'safe'],
         ];
     }
 
@@ -60,15 +60,11 @@ class UsersSearch extends Users
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'auth_key' => $this->auth_key,
-            'access_token' => $this->access_token,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'alias', $this->alias])
-            ->andFilterWhere(['like', 'login', $this->login])
+        $query->andFilterWhere(['like', 'login', $this->login])
             ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'userGroup', $this->userGroup])
             ->andFilterWhere(['like', 'avatar', $this->avatar]);
 
